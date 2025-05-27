@@ -1,0 +1,24 @@
+<ng-container *ngIf="product as p">
+  <h1 class="text-2xl font-bold">{{ p.name }}</h1>
+
+  <div *ngIf="p.images.length > 1; else singleImage" class="flex space-x-2 mt-4">
+    <img *ngFor="let img of p.images" [src]="img" class="w-60 h-60 object-cover rounded-xl" />
+  </div>
+
+  <ng-template #singleImage>
+    <img [src]="p.images[0]" class="w-60 h-60 object-cover rounded-xl" />
+  </ng-template>
+
+  <p class="mt-4 text-xl font-semibold">Prix : {{ p.price }} €</p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="mt-6 space-y-4">
+    <input formControlName="firstName" type="text" placeholder="Prénom" class="border p-2 w-full" />
+    <input formControlName="lastName" type="text" placeholder="Nom" class="border p-2 w-full" />
+    <input formControlName="phone" type="tel" placeholder="Téléphone" class="border p-2 w-full" />
+    <input formControlName="address" type="text" placeholder="Adresse" class="border p-2 w-full" />
+
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded" [disabled]="form.invalid">
+      Commander
+    </button>
+  </form>
+</ng-container>
